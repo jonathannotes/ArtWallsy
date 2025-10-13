@@ -2,51 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ArtWallsy — Coming Soon</title>
-  <meta name="description" content="Upload it. Frame it. Love it. ArtWallsy lets you design a custom frame from your phone and we ship it worldwide.">
+  <meta name="description" content="Upload it. Frame it. Love it. ArtWallsy lets you design a custom frame from your phone and we ship worldwide.">
   <style>
-    :root{
-      --bg:#fff; --ink:#111; --muted:#6b6b6b; --gold:#CBA135; --card:#F6F3EC;
-      --btn:#111; --btn-txt:#fff; --radius:16px;
-    }
+    :root{--ink:#111;--muted:#6b6b6b;--gold:#CBA135;--card:#F6F3EC;--border:#eee2ce;--btn:#111;--btn-txt:#fff;--radius:16px}
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;font:16px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color:var(--ink); background:linear-gradient(180deg,#fff, #faf7f0 40%, #fff);
-      display:flex; align-items:center; justify-content:center; padding:32px;
-    }
-    .wrap{max-width:1100px; width:100%; display:grid; grid-template-columns:1.05fr 0.95fr; gap:48px; align-items:center}
-    .card{
-      background:#fff; border:1px solid #eee5d6; border-radius:var(--radius);
-      padding:28px 32px; box-shadow:0 20px 60px rgba(17,17,17,.06);
-    }
-    .logo{display:flex; align-items:center; gap:14px; margin-bottom:18px}
-    .logo img{height:40px}
-    h1{font-size:44px; letter-spacing:-0.02em; margin:8px 0 12px}
-    p.lead{font-size:18px; color:var(--muted); margin:0 0 18px}
-    .badge{display:inline-block; padding:6px 10px; border-radius:999px; background:var(--card); color:#7a6840; font-weight:600; border:1px solid #eadfcb;}
-    .cta{display:flex; gap:10px; margin-top:14px}
-    .cta input[type="email"]{flex:1; padding:14px 16px; border:1px solid #e6dcc9; border-radius:12px; outline:none; background:#fff;}
-    .cta button{padding:14px 18px; border:none; background:var(--btn); color:var(--btn-txt); border-radius:12px; font-weight:700; cursor:pointer}
-    .small{color:var(--muted); font-size:13px; margin-top:10px}
-    .hero{border-radius:var(--radius); overflow:hidden; background:var(--card); border:1px solid #eee2ce}
-    .hero img{display:block; width:100%; height:auto}
-    footer{margin-top:16px; color:#8a8a8a; font-size:13px}
+    html,body{height:auto;min-height:100%}
+    body{margin:0;padding:18px;font:16px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);
+      background:linear-gradient(180deg,#fff,#fbf7ef 40%,#fff)}
+    .wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start}
+    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:0 20px 60px rgba(17,17,17,.06)}
+    .logo{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+    .logo img{height:64px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--card);border:1px solid var(--border);color:#7a6840;font-weight:600}
+    h1{font-size:42px;letter-spacing:-.02em;margin:8px 0 8px}
+    .lead{font-size:18px;color:var(--muted);margin:0 0 12px}
+    .cta{display:flex;gap:10px;margin-top:10px}
+    .cta input[type=email]{flex:1;padding:14px 16px;border:1px solid #e6dcc9;border-radius:12px;outline:none;background:#fff}
+    .cta button{padding:14px 18px;border:none;background:var(--btn);color:var(--btn-txt);border-radius:12px;font-weight:700;cursor:pointer}
+    .small{color:var(--muted);font-size:13px;margin-top:10px}
+    footer{margin-top:8px;color:#888;font-size:13px}
     .gold{color:var(--gold)}
-    @media (max-width:900px){ .wrap{grid-template-columns:1fr; gap:24px} h1{font-size:36px} }
+    .hero{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:#fff}
+    .hero img{display:block;width:100%;height:auto}
+    @media (max-width:900px){
+      body{padding:14px}
+      .wrap{grid-template-columns:1fr;gap:14px}
+      .logo img{height:60px}
+      h1{font-size:34px}
+      .hero{order:2}
+    }
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="card">
       <div class="logo">
-        <img src="assets/logo.svg" alt="ArtWallsy logo"/>
+        <img src="assets/logo.svg" alt="ArtWallsy logo">
         <span class="badge">Coming Soon</span>
       </div>
       <h1>Upload it. <span class="gold">Frame it.</span> Love it.</h1>
-      <p class="lead">Design a custom frame from your phone, preview it on your wall, and we’ll print, frame, and ship it worldwide with museum‑quality materials.</p>
+      <p class="lead">Design a custom frame from your phone, preview it on your wall, and we’ll print, frame, and ship it worldwide with museum-quality materials.</p>
       <form class="cta" action="mailto:support@artwallsy.com" method="post" enctype="text/plain">
         <input type="email" name="email" placeholder="Enter your email to get early access" required>
         <button type="submit">Get Notified</button>
@@ -54,8 +51,9 @@
       <p class="small">Powered by Art Connection • Fort Lauderdale, FL</p>
       <footer>© <span id="y"></span> ArtWallsy</footer>
     </section>
+
     <section class="hero">
-      <img src="assets/mockup.svg" alt="ArtWallsy app mockup showing frame designer and See on Wall button"/>
+      <img src="assets/mockup.png" alt="ArtWallsy frame designer mockup">
     </section>
   </main>
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>

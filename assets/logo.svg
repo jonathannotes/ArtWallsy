@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="160" viewBox="0 0 720 160">
   <rect width="100%" height="100%" fill="white"/>
-  <text x="50%" y="55%" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="64" font-weight="700" fill="#111111">
+  <text x="50%" y="55%" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="72" font-weight="700" fill="#111">
     Art<tspan fill="#CBA135">Wall</tspan>sy
   </text>
 </svg>
