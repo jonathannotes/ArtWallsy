@@ -1,1 +1,100 @@
-<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover'><title>ArtWallsy — Designer</title><link rel='stylesheet' href='css/styles.css'></head><body class='designer'><header class='topbar'><div class='inner'><a href='index.html' class='brand'><img src='assets/logo.svg' alt='ArtWallsy'></a><nav class='actions'><button id='seeWall' class='btn ghost'>See on Wall</button><label class='btn ghost file'><input id='wallUploader' type='file' accept='image/*' hidden>Use my wall</label><button id='reset' class='btn ghost'>Reset</button><a id='checkoutBtn' href='#' class='btn solid'>Add to Cart</a></nav></div></header><main class='studio'><aside class='panel'><h3>1) Upload your photo</h3><input id='uploader' type='file' accept='image/*'><p class='muted'>JPG/PNG up to ~10MB</p><h3>2) Frame style</h3><div id='frameSwatches' class='swatches'><button data-frame='black' class='swatch active' title='Black'></button><button data-frame='white' class='swatch white' title='White'></button><button data-frame='walnut' class='swatch walnut' title='Walnut'></button><button data-frame='oak' class='swatch oak' title='Oak'></button></div><h3>3) Size</h3><div id='sizeOptions' class='sizes'><label><input type='radio' name='size' value='8x10' checked> 8×10</label><label><input type='radio' name='size' value='12x16'> 12×16</label><label><input type='radio' name='size' value='16x20'> 16×20</label></div><h3>4) Mat width</h3><input id='matRange' type='range' min='0' max='40' step='2' value='10'><div class='mat-value'><span id='matVal'>10</span> mm</div><div class='price'><div>Price</div><strong id='priceVal'>$59</strong></div><div class='wall-select'><label>Wall style:</label><select id='wallStyle'><option value='none'>Plain</option><option value='plaster'>Plaster</option><option value='brick'>Brick</option></select></div></aside><section class='canvas'><div id='room' class='room'><div id='artWrap' class='art'><div id='frame' class='frame black'><div class='rabbet'></div><div id='mat' class='mat' style='--matW:10px;'><img id='photo' src='' alt='Your upload'></div></div></div></div><div class='tips'>Tip: Upload your wall photo or pick a wall style for a realistic preview.</div></section></main><footer class='foot'><div>Made in Florida • © <span id='y'></span> ArtWallsy</div></footer><script src='js/app_v2.js'></script><script>document.getElementById('y').textContent = new Date().getFullYear();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ArtWallsy — Designer</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="light">
+  <header class="top sticky">
+    <div class="container row">
+      <a class="brand-link" href="index.html"><img class="brand" src="assets/logo.svg" alt="ArtWallsy"></a>
+      <nav class="nav">
+        <button id="seeWall" class="btn ghost">See on wall</button>
+        <label class="btn ghost file">
+          <input id="roomUpload" type="file" accept="image/*" hidden>
+          Use my room
+        </label>
+        <a id="checkoutBtn" class="btn primary" href="#">Add to cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container studio">
+    <aside class="panel">
+      <h3>1) Upload your artwork</h3>
+      <input id="artUpload" type="file" accept="image/*">
+      <p class="muted">JPG/PNG up to ~15MB</p>
+
+      <h3>2) Frame style</h3>
+      <div id="frameSwatches" class="swatches">
+        <button data-frame="black" class="swatch black active" title="Black"></button>
+        <button data-frame="white" class="swatch white" title="White"></button>
+        <button data-frame="walnut" class="swatch walnut" title="Walnut"></button>
+        <button data-frame="oak" class="swatch oak" title="Oak"></button>
+      </div>
+
+      <h3>3) Size (inches)</h3>
+      <div id="sizeOptions" class="sizes">
+        <label><input type="radio" name="size" value="8x10" checked> 8×10</label>
+        <label><input type="radio" name="size" value="12x16"> 12×16</label>
+        <label><input type="radio" name="size" value="16x20"> 16×20</label>
+        <label><input type="radio" name="size" value="24x36"> 24×36</label>
+      </div>
+
+      <h3>4) Mat width</h3>
+      <input id="matRange" type="range" min="0" max="60" step="2" value="16">
+      <div class="muted">Mat: <b><span id="matVal">16</span> mm</b></div>
+
+      <div class="divider"></div>
+
+      <h3>Room scene</h3>
+      <select id="sceneSelect">
+        <option value="none">— None (studio) —</option>
+        <option value="living">Living room (84” sofa)</option>
+        <option value="gallery">Gallery wall</option>
+        <option value="bed">Bedroom (60” bed)</option>
+      </select>
+      <p class="muted small">For photoreal look, replace files: <code>/assets/scene_livingroom.jpg</code>, <code>/assets/scene_gallery.jpg</code>, <code>/assets/scene_bedroom.jpg</code>.</p>
+
+      <div class="scale">
+        <label>Reference width (inches): <input id="refWidth" type="number" value="84"></label>
+        <p class="muted small">Example: sofa width 84”. Used to scale the frame to real-life size.</p>
+      </div>
+
+      <div class="price">
+        <div>Total</div>
+        <strong id="priceVal">$59</strong>
+      </div>
+    </aside>
+
+    <section class="canvas">
+      <div id="scene" class="scene">
+        <img id="sceneImg" alt="" />
+        <div id="artWrap" class="art">
+          <div id="frame" class="frame black">
+            <div class="bevel"></div>
+            <div class="rabbet"></div>
+            <div id="mat" class="mat">
+              <img id="artImg" alt="Your artwork" />
+            </div>
+            <div class="glare"></div>
+          </div>
+          <div id="dims" class="dims"></div>
+        </div>
+      </div>
+      <div class="tips">Tip: Select a room scene or upload your own wall photo. Enter the sofa/bed width to scale the art accurately.</div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="container">
+      <p class="fine">Made in Florida • © <span id="y"></span> ArtWallsy</p>
+    </div>
+  </footer>
+
+  <script src="js/app_v3.js"></script>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
