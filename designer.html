@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ArtWallsy — Designer</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="designer-body">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html"><img src="assets/logo.svg" alt="ArtWallsy" /></a>
+      <nav class="nav">
+        <button id="seeWall" class="btn ghost">See on Wall</button>
+        <button id="reset" class="btn ghost">Reset</button>
+        <a class="btn solid" id="checkoutBtn" href="#">Add to Cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="studio">
+    <aside class="panel">
+      <h2>1) Upload your photo</h2>
+      <input id="uploader" type="file" accept="image/*">
+      <p class="muted">JPG/PNG up to ~10MB</p>
+
+      <h2>2) Choose frame</h2>
+      <div class="swatches" id="frameSwatches">
+        <button data-frame="black" class="swatch active" title="Black"></button>
+        <button data-frame="white" class="swatch white" title="White"></button>
+        <button data-frame="maple" class="swatch maple" title="Maple"></button>
+        <button data-frame="beech" class="swatch beech" title="Beech"></button>
+      </div>
+
+      <h2>3) Size</h2>
+      <div class="sizes" id="sizeOptions">
+        <label><input type="radio" name="size" value="8x10" checked> 8×10</label>
+        <label><input type="radio" name="size" value="12x16"> 12×16</label>
+        <label><input type="radio" name="size" value="16x20"> 16×20</label>
+      </div>
+
+      <div class="price">
+        <div>Price</div>
+        <strong id="priceVal">$59</strong>
+      </div>
+    </aside>
+
+    <section class="canvas-wrap">
+      <div id="wall" class="wall" style="background-image:none">
+        <div id="frame" class="frame black">
+          <div class="mat">
+            <img id="photo" src="" alt="Your upload" />
+          </div>
+        </div>
+      </div>
+      <div class="tips">Tip: Toggle <b>See on Wall</b> to view in a room.</div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div>Made with ❤ in Florida • © <span id="y"></span> ArtWallsy</div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
