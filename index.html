@@ -1,48 +1,175 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>ArtWallsy — Custom Frames, Real Room Preview</title>
-  <meta name="description" content="Upload your art, pick a frame, and preview it to scale in a real room. We craft and ship worldwide.">
-  <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ArtWallsy · Premium Preview</title>
+<style>
+:root{
+  --bg:#0b0c10; --panel:#121318; --text:#f4f5f8; --muted:#aab2c3;
+  --accent:#4da3ff; --radius:18px;
+}
+*{box-sizing:border-box} html,body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1100px;margin:28px auto;padding:0 16px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.brand{font-weight:800;letter-spacing:.3px}
+.badge{background:#131622;border:1px solid #20283a;border-radius:999px;padding:6px 10px;color:#b7c4de;font-size:12px}
+.card{background:linear-gradient(180deg,#13151c,#0f1116);border:1px solid #1f2430;border-radius:var(--radius);padding:18px}
+.grid{display:grid;gap:18px;grid-template-columns:1.5fr 1fr}
+@media(max-width:950px){.grid{grid-template-columns:1fr}}
+.title{font-weight:800;font-size:26px;margin:4px 0 12px}
+.upload{display:flex;gap:10px;align-items:center;background:#0e1015;border:1px dashed #2a3242;color:#c9d6f2;padding:12px 14px;border-radius:12px;cursor:pointer}
+input[type=file]{display:none}
+.stage{position:relative;background:#0a0b0f;border:1px solid #1f2430;border-radius:14px;display:flex;align-items:center;justify-content:center;min-height:420px;margin:16px 0;overflow:hidden}
+.art{max-width:82%;max-height:82%;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.frame{position:absolute;inset:50%;transform:translate(-50%,-50%);max-width:84%;max-height:84%}
+.group{background:#121622;border:1px solid #222b3f;border-radius:12px;padding:12px}
+.group h4{margin:0 0 8px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8aa0c7}
+.frames{display:flex;gap:10px;flex-wrap:wrap}
+.frames button{background:#0d1016;border:1px solid #2a3144;color:#cfd9ee;padding:8px 10px;border-radius:10px;cursor:pointer}
+.frames button.active{border-color:#4da3ff;background:#15243a}
+.sizes{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:#0d1016;border:1px solid #2a3144;border-radius:999px;padding:8px 12px;font-weight:600;font-size:13px;cursor:pointer}
+.chip.active{background:#15243a;border-color:#4da3ff}
+.cta{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:10px}
+.price{font-size:22px;font-weight:800}
+.btn{background:linear-gradient(180deg,#3b89ff,#2b6cd6);border:none;color:#fff;font-weight:800;padding:12px 18px;border-radius:12px;cursor:pointer}
+.btn.secondary{background:#121622;border:1px solid #2a3144}
+.room-stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid #1f2430;background:#0b0d12}
+.room-stage img.scene{display:block;width:100%}
+.room-art{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%)}
+.room-art img{display:block;max-width:100%}
+.room-art .room-frame{position:absolute;left:0;top:0;width:100%;height:100%}
+.slider{width:100%}
+footer{margin:28px 0 12px;text-align:center;color:#aab2c3}
+</style>
 </head>
-<body class="light">
-  <header class="top">
-    <div class="container row">
-      <img class="brand" src="assets/logo.svg" alt="ArtWallsy">
-      <nav class="nav">
-        <a class="link" href="designer.html">Designer</a>
-        <a class="link" href="mailto:support@artwallsy.com">Contact</a>
-      </nav>
-    </div>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">🖼️ ArtWallsy</div>
+    <div class="badge">Real frames · Real rooms</div>
   </header>
-
-  <main class="container hero">
-    <section class="hero-copy">
-      <h1>Upload it. <span class="gold">Frame it.</span> See it on your wall.</h1>
-      <p class="muted">Museum-quality frames, realistic room preview with scale. Made in Florida. Worldwide shipping.</p>
+  <div class="grid">
+    <section class="card">
+      <div class="title">Design Your Frame</div>
+      <label class="upload">
+        <input id="file" type="file" accept="image/*" />
+        ⬆️ Upload your artwork (JPG/PNG)
+      </label>
+      <div class="stage">
+        <img id="art" class="art" style="display:none"/>
+        <img id="frame" class="frame" src="assets/frame-black.png"/>
+      </div>
+      <div class="group">
+        <h4>Frames</h4>
+        <div class="frames">
+          <button data-frame="frame-black.png" class="active">Black</button>
+          <button data-frame="frame-gold.png">Gold</button>
+          <button data-frame="frame-oak.png">Oak</button>
+          <button data-frame="frame-silver.png">Silver</button>
+        </div>
+      </div>
+      <div class="group" style="margin-top:12px">
+        <h4>Sizes</h4>
+        <div class="sizes" id="sizes">
+          <span class="chip active" data-size="8x10">8×10</span>
+          <span class="chip" data-size="12x16">12×16</span>
+          <span class="chip" data-size="16x20">16×20</span>
+          <span class="chip" data-size="18x24">18×24</span>
+          <span class="chip" data-size="24x36">24×36</span>
+        </div>
+      </div>
       <div class="cta">
-        <a class="btn primary" href="designer.html">Start designing →</a>
-        <a class="btn ghost" href="mailto:support@artwallsy.com">Talk to a framer</a>
+        <div class="price" id="price">$89</div>
+        <div>
+          <button class="btn secondary" id="seeWall">See on Wall</button>
+          <button class="btn">Add to Cart</button>
+        </div>
       </div>
-      <p class="fine">Powered by Art Connection, Fort Lauderdale FL</p>
     </section>
-    <section class="hero-card">
-      <div class="hero-frame">
-        <div class="hero-frame-wood"></div>
-        <div class="hero-mat"></div>
+    <section class="card">
+      <div class="title">Live Room Preview</div>
+      <div class="room-stage" id="roomStage">
+        <img id="scene" class="scene" src="assets/room-living.jpg">
+        <div class="room-art" id="roomArt" style="width:170px">
+          <img id="roomArtImg" src="" style="display:none;border-radius:6px"/>
+          <img id="roomFrameImg" class="room-frame" src="assets/frame-black.png">
+        </div>
       </div>
-      <p class="fine center">Realistic depth • Real materials • Real scale</p>
+      <div class="group" style="margin-top:12px">
+        <h4>Room</h4>
+        <div class="frames">
+          <button data-room="room-living.jpg" class="active">Living Room</button>
+          <button data-room="room-bedroom.jpg">Bedroom</button>
+          <button data-room="room-gallery.jpg">Gallery</button>
+        </div>
+      </div>
+      <div class="group" style="margin-top:12px">
+        <h4>Scale</h4>
+        <input id="scale" type="range" min="120" max="520" value="170" class="slider">
+      </div>
     </section>
-  </main>
+  </div>
+  <footer>© <span id="y"></span> ArtWallsy • Premium Preview</footer>
+</div>
+<script>
+const y = document.getElementById('y'); y.textContent = new Date().getFullYear();
+const file = document.getElementById('file');
+const art = document.getElementById('art');
+const frame = document.getElementById('frame');
+const price = document.getElementById('price');
+const sizes = document.getElementById('sizes');
+const seeWall = document.getElementById('seeWall');
+const scene = document.getElementById('scene');
+const roomArt = document.getElementById('roomArt');
+const roomArtImg = document.getElementById('roomArtImg');
+const roomFrameImg = document.getElementById('roomFrameImg');
+const scale = document.getElementById('scale');
 
-  <footer class="foot">
-    <div class="container">
-      <p class="fine">© <span id="y"></span> ArtWallsy</p>
-    </div>
-  </footer>
+file.addEventListener('change', (e)=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const url = URL.createObjectURL(f);
+  art.src = url; art.style.display = 'block';
+  roomArtImg.src = url; roomArtImg.style.display = 'block';
+});
 
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+document.querySelectorAll('.frames button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    if (btn.dataset.frame){
+      document.querySelectorAll('.frames button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      frame.src = 'assets/' + btn.dataset.frame;
+      roomFrameImg.src = 'assets/' + btn.dataset.frame;
+    }
+    if (btn.dataset.room){
+      document.querySelectorAll('[data-room]').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      scene.src = 'assets/' + btn.dataset.room;
+    }
+  });
+});
+
+const basePrices = {"8x10":89,"12x16":129,"16x20":169,"18x24":199,"24x36":289};
+sizes.querySelectorAll('.chip').forEach(ch=>{
+  ch.addEventListener('click', ()=>{
+    sizes.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    ch.classList.add('active');
+    price.textContent = '$' + basePrices[ch.dataset.size];
+    const scaleMap = {"8x10":160,"12x16":200,"16x20":240,"18x24":270,"24x36":340};
+    scale.value = scaleMap[ch.dataset.size] || 170;
+    roomArt.style.width = scale.value + 'px';
+  });
+});
+
+seeWall.addEventListener('click', ()=>{
+  document.getElementById('roomStage').scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+scale.addEventListener('input', ()=>{
+  roomArt.style.width = scale.value + 'px';
+});
+</script>
 </body>
 </html>
