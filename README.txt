@@ -1,20 +1,17 @@
-ArtWallsy — Frames Only Pack (v6.3)
+# ArtWallsy drop‑in (BETA)
 
-This ZIP only replaces the frame assets. Nothing else changes.
-Order: Black → White → Gold → Silver → Oak (matches your current UI).
+This zip contains the HTML/CSS/JS only. Drop your assets into the folders below using *exact* filenames:
 
-Install (Vercel + GitHub):
-1) In your repo, go to /assets/frames/ and delete existing frame PNGs.
-2) Upload the five PNGs from this ZIP into /assets/frames/:
-   - black.png
-   - white.png
-   - gold.png
-   - silver.png
-   - oak.png
-   (And their @2x variants are included; keep the same names.)
-3) Commit to main and redeploy on Vercel (it auto‑deploys).
-4) Hard refresh your site (Cmd+Shift+R on Mac / Ctrl+F5 on Windows).
+```
+assets/frames/black.png
+assets/frames/white.png
+assets/frames/gold.png
+assets/frames/silver.png
+assets/frames/oak.png
 
-If your code references different file names:
-- Update your imports/paths to the ones above, or rename these files to match.
-A manifest.json is included if you want to enforce the order in code.
+assets/rooms/bedroom.jpg
+assets/rooms/livingroom.jpg
+assets/rooms/hallway.jpg
+```
+
+Then open `index.html` locally or deploy to Vercel/Netlify. The app is mobile‑first and clips the artwork inside the frame opening with a white mat toggle.

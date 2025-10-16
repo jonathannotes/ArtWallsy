@@ -1,77 +1,46 @@
-*{box-sizing:border-box}
 :root{
-  --bg:#0d1117;
-  --panel:#161b22;
-  --muted:#8b949e;
-  --text:#e6edf3;
-  --brand:#3b82f6;
-  --accent:#2ea043;
-  --radius:16px;
-  --mat:7%;        /* white mat thickness (percent of inner edge) */
+  --bg:#0d1220; --panel:#151b2c; --text:#e9eef9; --muted:#9fb0d6;
+  --blue:#3b82f6; --blue-2:#2a62c7; --chip:#1e2740;
 }
-html,body{height:100%}
-body{
-  margin:0; background:var(--bg); color:var(--text); font:500 16px/1.5 system-ui,-apple-system,Segoe UI,Roboto;
-}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:linear-gradient(180deg,#0b1120,#0d1220 35%); color:var(--text); }
+img{ max-width:100%; display:block; }
 .topbar{
-  display:flex; justify-content:space-between; align-items:center;
-  padding:14px clamp(16px,3vw,28px); border-bottom:1px solid #222;
-  position:sticky; top:0; background:rgba(13,17,23,.75); backdrop-filter: blur(8px); z-index:10;
+  position:sticky; top:0; z-index:20; display:flex; justify-content:space-between; align-items:center;
+  padding:14px 18px; background:rgba(9,14,30,.8); backdrop-filter:blur(8px); border-bottom:1px solid #1c2440;
 }
-.brand{display:flex; align-items:center; gap:10px}
-.logo{letter-spacing:.18em; font-weight:800}
-.pill{font-size:12px; padding:4px 8px; border-radius:999px; background:#111827; color:#60a5fa; border:1px solid #1f2937}
-.nav{display:flex; gap:16px}
-.nav a{color:var(--muted); text-decoration:none}
-.nav a:hover{color:var(--text)}
-
-.container{max-width:1100px; margin:32px auto; padding:0 16px; display:grid; gap:28px}
-.panel{background:var(--panel); border:1px solid #222; border-radius:var(--radius); padding:20px}
-h1{margin:0 0 6px}
-h2{margin:0 0 12px}
-.sub{opacity:.9}
-.muted{color:var(--muted)}
-
-.uploader .drop{
-  border:2px dashed #2a2f38; padding:18px; display:flex; justify-content:space-between; align-items:center;
-  border-radius:12px; gap:14px; flex-wrap:wrap;
+.brand{ display:flex; align-items:center; gap:10px; }
+.logo{ font-weight:800; letter-spacing:1px; }
+.beta{ font-size:12px; padding:2px 6px; border:1px solid #2b4786; border-radius:6px; color:#a9c2ff; }
+.nav a{ color:#cdd8ff; margin-left:14px; text-decoration:none; font-size:14px; }
+.container{ max-width:1100px; margin:24px auto; padding:0 14px; }
+.panel{ background:var(--panel); border:1px solid #1f2745; border-radius:16px; padding:18px; margin-bottom:18px; }
+h1{ margin:0 0 10px; } .muted{ color:var(--muted); font-weight:500; }
+.uploader{
+  border:1px dashed #2c3a6b; border-radius:14px; padding:16px; text-align:center; background:#0f1630; margin-bottom:12px;
 }
-.btn{border:0; padding:10px 14px; border-radius:10px; background:#263043; color:#cde1ff; cursor:pointer}
-.btn.primary{background:var(--brand); color:#fff}
-.btn:active{transform:translateY(1px)}
-
-.preview{display:grid; grid-template-columns:1fr; gap:18px; margin-top:16px}
-@media(min-width:920px){ .preview{grid-template-columns:1fr 340px} }
-
-.frame-stage{
-  position:relative; width:100%; aspect-ratio:1/1; background:#0b0f14; border-radius:12px; border:1px solid #252b36;
-  display:grid; place-items:center; overflow:hidden; padding:20px;
+.btn{ background:var(--chip); color:#cfe0ff; border:1px solid #2a3b73; padding:10px 14px; border-radius:10px; cursor:pointer; }
+.btn:hover{ border-color:#3b61cc; }
+.btn-primary{ background:var(--blue); border-color:var(--blue-2); color:#fff; }
+.stage-wrap{ background:#0b1123; border:1px solid #1e284b; border-radius:14px; padding:10px; }
+.controls{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px; }
+.row{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.choice{ display:flex; flex-wrap:wrap; gap:8px; }
+.choice button{ background:#1e2740; border:1px solid #213160; color:#cfe0ff; border-radius:9px; padding:8px 12px; cursor:pointer; }
+.choice button.active{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(59,130,246,.25) inset; }
+.price-row{ margin-top:8px; font-weight:700; }
+.rooms .room-tabs{ display:flex; gap:8px; margin-bottom:10px; }
+.rooms .tab{ background:#1a2140; border:1px solid #27346a; color:#cfe0ff; border-radius:999px; padding:8px 12px; cursor:pointer; }
+.rooms .tab.active{ border-color:var(--blue); }
+.room-wrap{ border:1px solid #1f2745; background:#0b1123; border-radius:14px; padding:10px; overflow:hidden; }
+.note{ color:#9fb0d6; margin-top:8px; }
+.footer{
+  display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center;
+  padding:18px; color:#a9b9e6; border-top:1px solid #1c2440;
 }
-.frame-stage .frame, .frame-stage .artwork{position:absolute; inset:8%}
-.frame-stage .frame{inset:0}
-.frame-stage .artwork{object-fit:cover; border-radius:2px; background:#111}
-
-.controls{display:grid; gap:18px}
-.group{display:grid; gap:10px}
-.group.inline{grid-auto-flow:column; align-items:center; justify-content:space-between}
-.seg{display:flex; gap:8px; flex-wrap:wrap}
-.seg button{
-  padding:8px 12px; border-radius:10px; background:#1f2430; color:#c8d2e1; border:1px solid #242a36; cursor:pointer
+/* Mobile */
+@media (max-width: 720px){
+  .controls{ grid-template-columns:1fr; }
+  .panel{ padding:14px; }
+  .room-wrap{ padding:6px; }
 }
-.seg button.active{background:#2d3647; outline:2px solid #3b82f6}
-
-.price{font-size:20px; opacity:.85}
-
-.room-stage{position:relative; width:100%; border-radius:12px; overflow:hidden; border:1px solid #252b36; background:#0b0f14}
-.room{display:block; width:100%; height:auto}
-.mount{position:absolute; inset:0; display:grid; place-items:center; pointer-events:none}
-.mount .frame{position:absolute}
-.mount .artwork{position:absolute; object-fit:cover; border-radius:2px; background:#fff}
-
-.tabs{display:flex; gap:8px; margin:10px 0 14px}
-.tabs button{padding:8px 12px; border-radius:10px; background:#1f2430; color:#c8d2e1; border:1px solid #242a36; cursor:pointer}
-.tabs button.active{background:#2d3647; outline:2px solid #3b82f6}
-.scale-note{color:var(--muted); margin-top:8px}
-
-.footer{max-width:1100px; margin:24px auto; padding:16px; color:#aab3c5; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; border-top:1px solid #222}
-.footer a{color:#cde1ff}
