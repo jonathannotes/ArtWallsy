@@ -3,201 +3,100 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ArtWallsy — Premium Preview (Beta)</title>
-  <style>
-    :root{
-      --bg:#0d1117; --panel:#111827; --muted:#9ca3af; --text:#e5e7eb; --brand:#4ea3ff;
-      --chip:#1f2937; --chipOn:#0b5bd3;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji;}
-    .wrap{max-width:1100px;margin:28px auto;padding:0 20px;display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
-    header{display:flex;align-items:center;gap:12px;margin:2px 0 10px}
-    .logo{font-weight:800;font-size:20px;letter-spacing:.3px}
-    .beta{padding:4px 8px;border-radius:999px;background:#103f79;color:#cfe3ff;border:1px solid #1c4f96;font-size:12px}
-    .card{background:var(--panel);border-radius:16px;border:1px solid #1f2937;box-shadow:0 6px 18px rgba(0,0,0,.35);}
-    .pad{padding:18px}
-    .title{font-weight:800;font-size:22px;margin:0 0 10px}
-    .uploader{border:2px dashed #334155;border-radius:14px;padding:18px;text-align:center;margin-bottom:14px}
-    .uploader h4{margin:0 0 10px;font-weight:700}
-    input[type=file]{display:none}
-    .btn{background:var(--brand);border:none;color:#05142b;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
-    .btn:active{transform:translateY(1px)}
-    .frameStage{background:#0b0f16;border-radius:14px;padding:14px;margin-top:6px;position:relative}
-    .frameCanvas{width:100%;aspect-ratio:1/1;background:#0e141d;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    /* The composited square */
-    .stack{position:relative;width:92%;aspect-ratio:1/1}
-    .art{position:absolute;inset:8% ;object-fit:cover;border-radius:2px;background:#fff; /* this creates the white mat */}
-    .frame{position:absolute;inset:0;pointer-events:none}
-    .options{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 2px}
-    .chip{padding:8px 11px;background:var(--chip);border:1px solid #263241;border-radius:10px;cursor:pointer}
-    .chip.on{background:var(--chipOn);border-color:#0b5bd3;color:#d9e7ff}
-    .priceRow{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-    .ghost{opacity:.75}
-    .see{padding:10px 14px;border-radius:10px;background:#132033;border:1px solid #22324a;color:#d5e7ff;cursor:pointer}
-    .room{width:100%;border-radius:14px;overflow:hidden;background:#0c1118;border:1px solid #1f2937}
-    .roomHead{display:flex;gap:8px;padding:12px 14px;border-bottom:1px solid #1f2937}
-    .roomBody{padding:14px}
-    .tab{padding:8px 12px;border-radius:999px;background:#0e1623;border:1px solid #22324a;cursor:pointer}
-    .tab.on{background:#0b5bd3;border-color:#0b5bd3;color:#eaf3ff}
-    .roomStage{position:relative;border-radius:12px;overflow:hidden}
-    .roomStage img.bg{display:block;width:100%;height:auto}
-    .mount{position:absolute;left:50%;transform:translateX(-50%); /* vertical position per-room in JS */}
-    .mount .stack{width:min(32vw,340px);}
-    footer{color:#93a3b8;font-size:13px;margin:26px 0 18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
-    @media (max-width:920px){ .wrap{grid-template-columns:1fr} }
-  </style>
+  <title>ArtWallsy — Premium Preview (BETA)</title>
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <div class="wrap">
-    <div>
-      <header>
-        <div class="logo">ArtWallsy</div>
+  <header class="site-header">
+    <div class="inner">
+      <div class="brand">
+        <img src="/assets/logo.svg" class="logo" alt="ArtWallsy">
         <span class="beta">BETA</span>
-      </header>
+      </div>
+      <nav class="nav">
+        <a href="#how">How it works</a>
+        <a href="#rooms">See on Wall</a>
+      </nav>
+    </div>
+  </header>
 
-      <div class="card pad">
-        <h2 class="title">Design Your Frame</h2>
-
+  <main class="container">
+    <section class="hero card">
+      <div class="col">
+        <h1>Design your frame. Preview at real scale.</h1>
+        <p class="muted">Upload any image, choose a gallery-grade frame, and preview it on real walls at true-to-life scale.</p>
         <div class="uploader">
-          <h4>Drag &amp; drop your image</h4>
+          <p>Drag &amp; drop your image</p>
           <label class="btn" for="file">Choose Image</label>
-          <input id="file" type="file" accept="image/*" />
+          <input id="file" type="file" accept="image/*" hidden>
         </div>
-
-        <div class="frameStage">
-          <div class="frameCanvas">
-            <div class="stack" id="stack">
-              <img id="art" class="art" alt="your art" />
-              <img id="frame" class="frame" alt="frame" src="assets/frames/black.png" />
-            </div>
-          </div>
-
-          <div class="options">
-            <div class="chip on" data-frame="black">Black</div>
-            <div class="chip" data-frame="white">White</div>
-            <div class="chip" data-frame="gold">Gold</div>
-            <div class="chip" data-frame="silver">Silver</div>
-            <div class="chip" data-frame="oak">Oak</div>
-          </div>
-
-          <div class="options" id="sizes">
-            <div class="chip on" data-size="12x16">12×16</div>
-            <div class="chip" data-size="16x20">16×20</div>
-            <div class="chip" data-size="18x24">18×24</div>
-            <div class="chip" data-size="24x36">24×36</div>
-          </div>
-
-          <div class="priceRow">
-            <div id="price">$169</div>
-            <button class="see" id="see">See on Wall</button>
-          </div>
+        <div class="pills" id="sizePicker">
+          <button class="pill active" data-size="12x16">12×16</button>
+          <button class="pill" data-size="16x20">16×20</button>
+          <button class="pill" data-size="18x24">18×24</button>
+          <button class="pill" data-size="24x36">24×36</button>
+        </div>
+        <div class="cta">
+          <div id="price" class="price">$169</div>
+          <button id="see" class="btn secondary">See on Wall</button>
         </div>
       </div>
 
-      <footer class="pad">
-        <div>© 2025 ArtWallsy</div>
-        <div>Powered by Art Connection • Fort Lauderdale, FL</div>
-        <div class="ghost">Questions? <a href="mailto:hello@artwallsy.com" style="color:#cfe3ff;text-decoration:none">hello@artwallsy.com</a></div>
-      </footer>
-    </div>
-
-    <div>
-      <div class="card room">
-        <div class="roomHead">
-          <div class="tab on" data-room="bedroom">Bedroom</div>
-          <div class="tab" data-room="living">Living Room</div>
-          <div class="tab" data-room="hallway">Hallway</div>
-        </div>
-        <div class="roomBody">
-          <div class="roomStage" id="roomStage">
-            <img class="bg" id="roomBg" src="assets/rooms/bedroom.png" alt="room" />
-            <div class="mount" id="mount">
-              <div class="stack">
-                <img id="art2" class="art" alt="your art" />
-                <img id="frame2" class="frame" alt="frame" src="assets/frames/black.png" />
-              </div>
-            </div>
+      <div class="col">
+        <div class="stage">
+          <div class="frame-stack">
+            <div id="mat" class="mat"></div>
+            <img id="art" class="art" alt="Your art" />
+            <img id="frame" class="frame" src="/assets/frames/black.png" alt="Frame" />
           </div>
-          <div id="caption" class="ghost" style="margin-top:10px">Sizes shown relative to a queen bed ≈ 60&quot;.</div>
+          <div class="pills" id="framePicker">
+            <button class="pill active" data-frame="black">Black</button>
+            <button class="pill" data-frame="white">White</button>
+            <button class="pill" data-frame="gold">Gold</button>
+            <button class="pill" data-frame="silver">Silver</button>
+            <button class="pill" data-frame="oak">Oak</button>
+          </div>
         </div>
       </div>
+    </section>
+
+    <section id="rooms" class="rooms card">
+      <div class="rooms-head">
+        <h2>See it on a wall</h2>
+        <div class="tabs" id="roomTabs">
+          <button class="tab active" data-room="bedroom">Bedroom</button>
+          <button class="tab" data-room="living">Living Room</button>
+          <button class="tab" data-room="hallway">Hallway</button>
+        </div>
+      </div>
+
+      <div class="room-stage">
+        <img id="roomBg" class="room-bg" src="/assets/rooms/bedroom.jpg" alt="Room">
+        <div id="mount" class="mount">
+          <div class="frame-stack">
+            <div class="mat room-mat"></div>
+            <img id="art2" class="art" alt="Your art on wall">
+            <img id="frame2" class="frame" src="/assets/frames/black.png" alt="Frame">
+          </div>
+        </div>
+      </div>
+      <p id="scaleNote" class="scale-note">Sizes shown relative to a queen bed ≈ 60".</p>
+    </section>
+
+    <section id="how" class="about card">
+      <h3>What is ArtWallsy?</h3>
+      <p>Upload any image, pick a frame, and preview your art in real rooms. When you’re ready, we print on archival paper, mount, frame, and ship worldwide.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div>© 2025 ArtWallsy</div>
+      <div>Powered by Art Connection • Fort Lauderdale, FL</div>
+      <div><a href="mailto:hello@artwallsy.com">hello@artwallsy.com</a></div>
     </div>
-  </div>
+  </footer>
 
-<script>
-  const frameFiles = {
-    black: "assets/frames/black.png",
-    white: "assets/frames/white.png",
-    gold:  "assets/frames/gold.png",
-    silver:"assets/frames/silver.png",
-    oak:   "assets/frames/oak.png",
-  };
-
-  const prices = { "12x16":169, "16x20":189, "18x24":199, "24x36":259 };
-
-  const roomMeta = {
-    bedroom: { img:"assets/rooms/bedroom.png", top:"26%", caption:'Sizes shown relative to a queen bed ≈ 60".' },
-    living:  { img:"assets/rooms/living.png",   top:"22%", caption:'Sizes shown relative to a sofa ≈ 84".' },
-    hallway: { img:"assets/rooms/hallway.png",  top:"20%", caption:'Sizes shown relative to a console ≈ 60".' }
-  };
-
-  const file = document.getElementById('file');
-  const art = document.getElementById('art');
-  const art2 = document.getElementById('art2');
-  const frame = document.getElementById('frame');
-  const frame2 = document.getElementById('frame2');
-  const price = document.getElementById('price');
-  const see = document.getElementById('see');
-  const mount = document.getElementById('mount');
-  const roomBg = document.getElementById('roomBg');
-  const caption = document.getElementById('caption');
-
-  file.addEventListener('change', (e)=>{
-    const f = e.target.files[0]; if(!f) return;
-    const url = URL.createObjectURL(f);
-    // Set in both canvases
-    art.src = url; art2.src = url;
-  });
-
-  // Frame selection
-  document.querySelectorAll('.options .chip').forEach(ch=>{
-    ch.addEventListener('click', ()=>{
-      if(ch.dataset.frame){
-        document.querySelectorAll('.options .chip[data-frame]').forEach(c=>c.classList.remove('on'));
-        ch.classList.add('on');
-        const f = frameFiles[ch.dataset.frame];
-        frame.src = f; frame2.src = f;
-      }
-      if(ch.dataset.size){
-        document.querySelectorAll('#sizes .chip').forEach(c=>c.classList.remove('on'));
-        ch.classList.add('on');
-        price.textContent = `$${prices[ch.dataset.size]}`;
-        // scale the art mat slightly by size so larger sizes have a thinner mat
-        const pct = { "12x16": 8, "16x20": 7, "18x24": 6, "24x36": 5 }[ch.dataset.size];
-        document.querySelectorAll('.stack > .art').forEach(a=>{
-          a.style.inset = pct+"%";
-        });
-      }
-    });
-  });
-
-  // Room tabs
-  document.querySelectorAll('.tab').forEach(t=>{
-    t.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-      t.classList.add('on');
-      const meta = roomMeta[t.dataset.room];
-      roomBg.src = meta.img;
-      mount.style.top = meta.top;
-      caption.textContent = meta.caption;
-    });
-  });
-
-  // "See on Wall" just scrolls to the room panel
-  see.addEventListener('click', ()=>{
-    document.querySelector('.room').scrollIntoView({behavior:'smooth'});
-  });
-</script>
+  <script src="/app.js"></script>
 </body>
 </html>
