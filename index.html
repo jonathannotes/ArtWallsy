@@ -4,90 +4,113 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ArtWallsy — Premium Preview (BETA)</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <title>ArtWallsy — Premium Preview (Beta)</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <header class="header">
-    <div class="left">
-      <img src="assets/logo/logo.svg" alt="ArtWallsy logo" height="28"/>
-      <span class="badge">BETA</span>
-    </div>
-    <div class="right muted">Premium Preview</div>
-  </header>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <img src="assets/logo-blue.svg" alt="ArtWallsy logo" height="28"/>
+        <span class="badge">BETA</span>
+      </div>
+      <div class="badge">Real frames • Real rooms</div>
+    </header>
 
-  <main class="container">
-    <!-- Left: Designer -->
-    <section class="card">
-      <h1>Design Your Frame</h1>
-      <div class="upload">
-        <h2>1) Upload your artwork (JPG/PNG)</h2>
-        <div class="dropzone">
-          <div class="muted">Drag & drop your image here</div>
-          <button class="btn" id="browseBtn">Choose Image</button>
-          <input id="fileInput" type="file" accept="image/png, image/jpeg"/>
+    <div class="grid">
+      <section class="card">
+        <h1>Design Your Frame</h1>
+
+        <div class="upload">
+          <label for="imgInput"><strong>Drag & drop</strong> your image here or</label><br/>
+          <label class="btn" style="margin-top:10px; display:inline-block" for="imgInput">Choose Image</label>
+          <input id="imgInput" type="file" accept="image/png,image/jpeg"/>
         </div>
-        <div class="preview">
-          <div class="canvas-wrap">
-            <img id="frameCanvas" alt="Framed preview" style="max-width:100%; border-radius:10px"/>
+
+        <div class="frame-stage-wrap">
+          <div class="frame-stage">
+            <div id="frame" class="frame" data-style="black">
+              <div id="art" class="art" style="background-image:url('assets/rooms/bedroom.jpg'); background-size:cover;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="group">
+            <h3 class="section-title">1) Choose a frame</h3>
+            <div class="pills">
+              <button class="pill" data-frame="black">Black</button>
+              <button class="pill" data-frame="gold">Gold</button>
+              <button class="pill" data-frame="oak">Oak</button>
+              <button class="pill" data-frame="silver">Silver</button>
+            </div>
+          </div>
+
+          <div class="group">
+            <h3 class="section-title">2) Size</h3>
+            <div class="pills">
+              <button class="pill" data-size="8x10">8×10</button>
+              <button class="pill" data-size="12x16">12×16</button>
+              <button class="pill" data-size="18x24">18×24</button>
+              <button class="pill" data-size="24x36">24×36</button>
+            </div>
+          </div>
+
+          <div class="group" style="display:flex; align-items:center; justify-content:space-between; gap:12px">
+            <div class="price" id="price">$199</div>
+            <div style="display:flex; gap:10px">
+              <button class="btn secondary" id="openWall">See on Wall</button>
+              <button class="btn">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h3 class="section-title">What is ArtWallsy?</h3>
+        <p style="color:var(--muted)">
+          Upload any image, design a gallery-grade frame with a true-to-life white mat, and preview your artwork in real rooms — bedroom, living room, or gallery — at realistic scale.
+          When you’re ready, we’ll print on archival paper, mount, frame, and ship worldwide.
+        </p>
+        <div class="footer">
+          <span>© <span id="year"></span> ArtWallsy • Powered by <strong>Art Connection</strong> • Fort Lauderdale, FL</span>
+          <span>Questions? <a href="mailto:hello@artwallsy.com">hello@artwallsy.com</a></span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- SEE ON WALL MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="room-switch">
+          <button class="room" data-room="bedroom">Bedroom</button>
+          <button class="room" data-room="living">Living Room</button>
+          <button class="room" data-room="gallery">Gallery</button>
+        </div>
+        <button class="close" id="closeWall">Close</button>
+      </div>
+      <div class="wall-stage">
+        <img id="wallImg" class="wall-img" src="assets/rooms/bedroom.jpg" alt="Room background"/>
+        <div class="wall-square">
+          <div id="wallFrame" class="wall-frame" style="--frame-color:#1b1f27">
+            <div id="wallArt" class="wall-art"></div>
           </div>
         </div>
       </div>
-
-      <div style="margin-top:12px">
-        <h2>2) Choose a frame</h2>
-        <div class="controls">
-          <button class="pill frame-pill active" data-key="black" onclick="selectFrame('black')">Black</button>
-          <button class="pill frame-pill" data-key="gold" onclick="selectFrame('gold')">Gold</button>
-          <button class="pill frame-pill" data-key="oak" onclick="selectFrame('oak')">Oak</button>
-          <button class="pill frame-pill" data-key="silver" onclick="selectFrame('silver')">Silver</button>
-        </div>
+      <div class="note" id="note">Sizes shown at realistic scale relative to furniture.</div>
+      <div class="footer" style="margin-top:10px">
+        <span>© <span id="year2"></span> ArtWallsy • Powered by <strong>Art Connection</strong> • Fort Lauderdale, FL</span>
+        <span class="badge">Premium Preview</span>
       </div>
+    </div>
+  </div>
 
-      <div style="margin-top:12px">
-        <h2>3) Size</h2>
-        <div class="controls">
-          <button class="pill size-pill" data-key="8x10" onclick="selectSize('8x10')">8×10</button>
-          <button class="pill size-pill active" data-key="12x16" onclick="selectSize('12x16')">12×16</button>
-          <button class="pill size-pill" data-key="16x20" onclick="selectSize('16x20')">16×20</button>
-          <button class="pill size-pill" data-key="18x24" onclick="selectSize('18x24')">18×24</button>
-          <button class="pill size-pill" data-key="24x36" onclick="selectSize('24x36')">24×36</button>
-        </div>
-      </div>
-
-      <div class="priceBar">
-        <div id="price" style="font-size:22px; font-weight:800">$199</div>
-        <div style="display:flex; gap:10px">
-          <button class="btnGhost" onclick="document.getElementById('seeOnWall').scrollIntoView({behavior:'smooth'})">See on Wall</button>
-          <button class="btnPrimary">Add to Cart</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Right: Room preview -->
-    <section class="card" id="seeOnWall">
-      <h1>Live Room Preview</h1>
-      <div class="room">
-        <div class="thumbs">
-          <button class="room-pill active" data-key="bedroom" onclick="chooseRoom('bedroom')">Bedroom</button>
-          <button class="room-pill" data-key="living" onclick="chooseRoom('living')">Living Room</button>
-          <button class="room-pill" data-key="gallery" onclick="chooseRoom('gallery')">Gallery</button>
-        </div>
-        <div class="roomView">
-          <img id="roomPreview" alt="Room preview"/>
-        </div>
-        <div class="muted">Sizes are shown at realistic scale relative to furniture (e.g., queen bed ≈ 60″).</div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div>© 2025 ArtWallsy · <span class="muted">Powered by Art Connection • Fort Lauderdale, FL</span></div>
-    <div class="muted">Questions? <a href="#">hello@artwallsy.com</a></div>
-  </footer>
-
-  <script src="assets/js/app.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('year2').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
