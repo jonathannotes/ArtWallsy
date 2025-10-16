@@ -19,11 +19,11 @@
     <!-- Designer -->
     <section class="card">
       <h1>Design Your Frame</h1>
-      <p class="sub">Upload your artwork, choose a frame, pick a size, then preview it in real rooms.</p>
+      <p class="sub">Upload your image, pick a premium frame, and preview your artwork at real scale before you buy.</p>
 
-      <!-- Uploader (kept as-is) -->
+      <!-- Uploader (kept, but copy fixed) -->
       <div class="uploader">
-        <div>Drag & drop your image or</div>
+        <div>Drag & drop your image</div>
         <button id="chooseBtn" class="btn">Choose Image</button>
         <input id="fileInput" type="file" accept="image/png,image/jpeg"/>
       </div>
@@ -56,10 +56,9 @@
       </div>
 
       <div class="card" style="margin-top:14px">
-        <strong>What is ArtWallsy?</strong>
+        <strong>About ArtWallsy</strong>
         <p class="sub" style="margin-top:6px">
-          ArtWallsy lets you upload your art, choose a premium frame, and preview it in real rooms.
-          <em>Real frames. Real rooms. Real scale.</em>
+          ArtWallsy helps you showcase your art like a gallery. Upload your image, choose a handcrafted frame, and preview it in real rooms at true-to-life scale. When you’re ready, we print on archival paper, mount, frame, and ship—worldwide.
         </p>
       </div>
     </section>
@@ -75,10 +74,11 @@
 
       <div class="canvas">
         <img id="roomBg" class="bg" src="assets/rooms/bedroom.jpg" alt="Room background"/>
+        <!-- Square, centered, with visible white mat -->
         <div id="mount" class="mount">
           <div class="rim"></div>
-          <div class="mmat"></div>
-          <img id="roomArt" class="mart" alt="art on wall"/>
+          <div class="wmat"></div>
+          <img id="roomArt" class="wart" alt="art on wall"/>
         </div>
       </div>
       <div id="note" class="note">Shown at realistic scale relative to a queen bed (~60″).</div>

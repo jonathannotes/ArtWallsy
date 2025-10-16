@@ -1,12 +1,13 @@
 
 const input = document.getElementById('fileInput');
 const art = document.getElementById('artImg');
-const mart = document.getElementById('roomArt');
+const wallArt = document.getElementById('roomArt');
 document.getElementById('chooseBtn').addEventListener('click', ()=> input.click());
 input.addEventListener('change', e=>{
   const f = e.target.files?.[0]; if(!f) return;
   const url = URL.createObjectURL(f);
-  art.src = url; document.getElementById('roomArt').src = url;
+  art.src = url;
+  wallArt.src = url;
 });
 
 // Frame finish
@@ -39,12 +40,12 @@ function updatePrice(k){
   price.textContent = '$'+p;
 }
 
-// Rooms
+// Rooms (raise bedroom & living)
 const roomImg = document.getElementById('roomBg');
 const note = document.getElementById('note');
 const roomMeta = {
-  bedroom: {src:'assets/rooms/bedroom.jpg', refIn:60, note:'Shown at realistic scale relative to a queen bed (~60″).', top:42},
-  living:  {src:'assets/rooms/living.jpg',  refIn:84, note:'Shown at realistic scale relative to a sofa (~84″).',    top:40},
+  bedroom: {src:'assets/rooms/bedroom.jpg', refIn:60, note:'Shown at realistic scale relative to a queen bed (~60″).', top:38},
+  living:  {src:'assets/rooms/living.jpg',  refIn:84, note:'Shown at realistic scale relative to a sofa (~84″).',    top:36},
   gallery: {src:'assets/rooms/gallery.jpg', refIn:120, note:'Shown on a gallery wall (~10 ft panel).',                top:42}
 };
 document.querySelectorAll('[data-room]').forEach(btn=>{
@@ -59,7 +60,7 @@ function setRoom(key){
   const r = roomMeta[key];
   roomImg.src = r.src;
   note.textContent = r.note;
-  document.getElementById('mount').style.top = r.top+'%';
+  mount.style.top = r.top+'%';
   const activeSize = document.querySelector('[data-size].active')?.dataset.size || '12x16';
   scaleOnWall(activeSize);
 }
@@ -77,7 +78,7 @@ function scaleOnWall(sizeKey){
   const refIn = roomMeta[rkey].refIn;
   const baselineIn = 24, baselinePct = 28;
   const pct = Math.max(10, Math.min(40, (w/baselineIn) * baselinePct * (60/refIn)));
-  document.getElementById('mount').style.width = pct + '%';
+  mount.style.width = pct + '%';
 }
 
 // init
