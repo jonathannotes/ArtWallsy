@@ -1,78 +1,23 @@
-const FRAMES = {
-  black:  '/assets/frames/black.png',
-  white:  '/assets/frames/white.png',
-  gold:   '/assets/frames/gold.png',
-  silver: '/assets/frames/silver.png',
-  oak:    '/assets/frames/oak.png',
-};
-
-const ROOM_META = {
-  bedroom: { src:'/assets/rooms/bedroom.jpg', top:'28%', note:'Sizes shown relative to a queen bed ≈ 60".' },
-  living:  { src:'/assets/rooms/living.jpg',  top:'24%', note:'Sizes shown relative to a sofa ≈ 84".' },
-  hallway: { src:'/assets/rooms/hallway.jpg', top:'22%', note:'Sizes shown relative to a console ≈ 72".' }
-};
-
-const PRICES = { '12x16':169, '16x20':189, '18x24':199, '24x36':289 };
-
-const fileEl = document.getElementById('file');
-const art = document.getElementById('art');
-const art2 = document.getElementById('art2');
-const frame = document.getElementById('frame');
-const frame2 = document.getElementById('frame2');
-const framePicker = document.getElementById('framePicker');
-const sizePicker = document.getElementById('sizePicker');
-const priceEl = document.getElementById('price');
-const seeBtn = document.getElementById('see');
-const roomTabs = document.getElementById('roomTabs');
-const roomBg = document.getElementById('roomBg');
-const mount = document.getElementById('mount');
-const scaleNote = document.getElementById('scaleNote');
-
-let state = { frame:'black', size:'12x16', room:'bedroom' };
-
-fileEl.addEventListener('change', (e)=>{
-  const f = e.target.files?.[0]; if(!f) return;
-  const url = URL.createObjectURL(f);
-  art.src = url; art2.src = url;
-});
-
-framePicker.addEventListener('click',(e)=>{
-  const btn = e.target.closest('button[data-frame]'); if(!btn) return;
-  framePicker.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  state.frame = btn.dataset.frame;
-  frame.src = FRAMES[state.frame];
-  frame2.src = FRAMES[state.frame];
-});
-
-sizePicker.addEventListener('click',(e)=>{
-  const btn = e.target.closest('button[data-size]'); if(!btn) return;
-  sizePicker.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  state.size = btn.dataset.size;
-  priceEl.textContent = `$${PRICES[state.size]}`;
-  const matInset = { '12x16':'9.2%', '16x20':'8.8%', '18x24':'8.4%', '24x36':'8.0%' }[state.size];
-  document.querySelectorAll('.art').forEach(n=> n.style.inset = matInset);
-});
-
-seeBtn.addEventListener('click', ()=>{
-  document.querySelector('#rooms').scrollIntoView({behavior:'smooth'});
-});
-
-roomTabs.addEventListener('click',(e)=>{
-  const t = e.target.closest('button[data-room]'); if(!t) return;
-  roomTabs.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active');
-  state.room = t.dataset.room;
-  const cfg = ROOM_META[state.room];
-  roomBg.src = cfg.src;
-  mount.style.top = cfg.top;
-  scaleNote.textContent = cfg.note;
-});
-
-priceEl.textContent = `$${PRICES[state.size]}`;
-frame.src = FRAMES[state.frame];
-frame2.src = FRAMES[state.frame];
-roomBg.src = ROOM_META[state.room].src;
-mount.style.top = ROOM_META[state.room].top;
-scaleNote.textContent = ROOM_META[state.room].note;
+const SIZES={'12x16':{price:169},'16x20':{price:199},'18x24':{price:229},'24x36':{price:289}};
+const FRAMES={black:'assets/frame-black.png',white:'assets/frame-white.png',gold:'assets/frame-gold.png',silver:'assets/frame-silver.png',oak:'assets/frame-oak.png'};
+const ROOMS={bedroom:{img:'assets/room-bedroom.jpg',note:'Sizes shown relative to a queen bed ≈ 60"',top:'12%'},
+living:{img:'assets/room-living.jpg',note:'Sizes shown relative to a 84" sofa',top:'10%'},
+hallway:{img:'assets/room-hallway.jpg',note:'Sizes shown relative to a 36" console',top:'14%'}};
+const pick=document.getElementById('pick'),file=document.getElementById('file'),
+artImg=document.getElementById('artImg'),frameImg=document.getElementById('frameImg'),price=document.getElementById('price'),
+wallArt=document.getElementById('wallArt'),wallArtImg=document.getElementById('wallArtImg'),wallFrame=document.getElementById('wallFrame'),
+roomImg=document.getElementById('roomImg'),scaleNote=document.getElementById('scaleNote');
+document.querySelectorAll('.pill').forEach(p=>p.addEventListener('click',()=>{document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');price.textContent=`$${SIZES[p.dataset.size].price}`}));
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');frameImg.src=FRAMES[c.dataset.frame];wallFrame.src=FRAMES[c.dataset.frame]}));
+pick.addEventListener('click',()=>file.click());file.addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;const u=URL.createObjectURL(f);artImg.src=u;wallArtImg.src=u});
+const drop=document.getElementById('dropzone');['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{drop.classList.remove('drag')}));drop.addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files?.[0];if(!f)return;const u=URL.createObjectURL(f);artImg.src=u;wallArtImg.src=u});
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');const r=ROOMS[t.dataset.room];roomImg.src=r.img;wallArt.style.top=r.top;scaleNote.textContent=r.note}));
+document.getElementById('seeOnWall').addEventListener('click',()=>{document.getElementById('rooms').scrollIntoView({behavior:'smooth',block:'start'})});
+// AI mock
+const modal=document.getElementById('modal'),aiBtn=document.getElementById('aiGen'),closeModal=document.getElementById('closeModal'),
+genBtn=document.getElementById('gen'),useGen=document.getElementById('useGen'),canvas=document.getElementById('genCanvas'),ctx=canvas.getContext('2d');
+aiBtn.addEventListener('click',()=>modal.classList.add('show'));closeModal.addEventListener('click',()=>modal.classList.remove('show'));
+function drawMock(p){const g=ctx.createLinearGradient(0,0,canvas.width,canvas.height);g.addColorStop(0,'#0ea5e9');g.addColorStop(.5,'#3b82f6');g.addColorStop(1,'#1d4ed8');ctx.fillStyle=g;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.globalAlpha=.25;for(let y=0;y<canvas.height;y+=24){ctx.fillStyle='white';ctx.fillRect(0,y,canvas.width,12)}ctx.globalAlpha=1;ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(0,canvas.height-220,canvas.width,220);ctx.fillStyle='white';ctx.font='bold 44px Inter, system-ui';ctx.fillText((p||'Abstract blue').slice(0,40),36,canvas.height-160);ctx.font='600 18px Inter, system-ui';ctx.fillText('Local mock artwork',36,canvas.height-120)}
+genBtn.addEventListener('click',()=>{const p=document.getElementById('prompt').value.trim();drawMock(p)});
+useGen.addEventListener('click',()=>{canvas.toBlob(b=>{const u=URL.createObjectURL(b);artImg.src=u;wallArtImg.src=u;modal.classList.remove('show')},'image/png',.92)});

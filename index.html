@@ -1,102 +1,33 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ArtWallsy — Premium Preview (BETA)</title>
-  <link rel="stylesheet" href="/style.css" />
-</head>
-<body>
-  <header class="site-header">
-    <div class="inner">
-      <div class="brand">
-        <img src="/assets/logo.svg" class="logo" alt="ArtWallsy">
-        <span class="beta">BETA</span>
-      </div>
-      <nav class="nav">
-        <a href="#how">How it works</a>
-        <a href="#rooms">See on Wall</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="hero card">
-      <div class="col">
-        <h1>Design your frame. Preview at real scale.</h1>
-        <p class="muted">Upload any image, choose a gallery-grade frame, and preview it on real walls at true-to-life scale.</p>
-        <div class="uploader">
-          <p>Drag &amp; drop your image</p>
-          <label class="btn" for="file">Choose Image</label>
-          <input id="file" type="file" accept="image/*" hidden>
-        </div>
-        <div class="pills" id="sizePicker">
-          <button class="pill active" data-size="12x16">12×16</button>
-          <button class="pill" data-size="16x20">16×20</button>
-          <button class="pill" data-size="18x24">18×24</button>
-          <button class="pill" data-size="24x36">24×36</button>
-        </div>
-        <div class="cta">
-          <div id="price" class="price">$169</div>
-          <button id="see" class="btn secondary">See on Wall</button>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="stage">
-          <div class="frame-stack">
-            <div id="mat" class="mat"></div>
-            <img id="art" class="art" alt="Your art" />
-            <img id="frame" class="frame" src="/assets/frames/black.png" alt="Frame" />
-          </div>
-          <div class="pills" id="framePicker">
-            <button class="pill active" data-frame="black">Black</button>
-            <button class="pill" data-frame="white">White</button>
-            <button class="pill" data-frame="gold">Gold</button>
-            <button class="pill" data-frame="silver">Silver</button>
-            <button class="pill" data-frame="oak">Oak</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="rooms" class="rooms card">
-      <div class="rooms-head">
-        <h2>See it on a wall</h2>
-        <div class="tabs" id="roomTabs">
-          <button class="tab active" data-room="bedroom">Bedroom</button>
-          <button class="tab" data-room="living">Living Room</button>
-          <button class="tab" data-room="hallway">Hallway</button>
-        </div>
-      </div>
-
-      <div class="room-stage">
-        <img id="roomBg" class="room-bg" src="/assets/rooms/bedroom.jpg" alt="Room">
-        <div id="mount" class="mount">
-          <div class="frame-stack">
-            <div class="mat room-mat"></div>
-            <img id="art2" class="art" alt="Your art on wall">
-            <img id="frame2" class="frame" src="/assets/frames/black.png" alt="Frame">
-          </div>
-        </div>
-      </div>
-      <p id="scaleNote" class="scale-note">Sizes shown relative to a queen bed ≈ 60".</p>
-    </section>
-
-    <section id="how" class="about card">
-      <h3>What is ArtWallsy?</h3>
-      <p>Upload any image, pick a frame, and preview your art in real rooms. When you’re ready, we print on archival paper, mount, frame, and ship worldwide.</p>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="inner">
-      <div>© 2025 ArtWallsy</div>
-      <div>Powered by Art Connection • Fort Lauderdale, FL</div>
-      <div><a href="mailto:hello@artwallsy.com">hello@artwallsy.com</a></div>
-    </div>
-  </footer>
-
-  <script src="/app.js"></script>
-</body>
-</html>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>ArtWallsy — Premium Preview (Mobile Optimized)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"/></head><body>
+<header class="topbar"><div class="brand"><span class="logo-dot"></span><span class="brand-text">ArtWallsy</span><span class="beta">BETA</span></div>
+<nav class="nav"><a href="#how">How it works</a><a href="#rooms">See on Wall</a></nav></header>
+<main class="container">
+<section class="hero" id="designer"><div class="left-col">
+<h1>Design your frame.<br><span class="muted">Preview at real scale.</span></h1>
+<p class="lead">Upload any image, pick a gallery-grade frame, and preview it on real rooms at true-to-life scale.</p>
+<div class="uploader" id="dropzone"><p>Drag &amp; drop your image</p><button id="pick" class="btn primary">Choose Image</button>
+<input id="file" type="file" accept="image/*" hidden/><div class="orbar"><span>or</span></div>
+<button id="aiGen" class="btn outline">Generate with AI</button><small class="hint">JPG/PNG up to 15MB</small></div>
+<div class="pills"><div class="pill active" data-size="12x16">12×16</div><div class="pill" data-size="16x20">16×20</div><div class="pill" data-size="18x24">18×24</div><div class="pill" data-size="24x36">24×36</div></div>
+<div class="frame-choices"><button class="chip active" data-frame="black">Black</button><button class="chip" data-frame="white">White</button><button class="chip" data-frame="gold">Gold</button><button class="chip" data-frame="silver">Silver</button><button class="chip" data-frame="oak">Oak</button></div>
+<div class="cta"><button id="seeOnWall" class="btn ghost">See on Wall</button><button class="btn primary">Add to Cart</button><div class="price" id="price">$199</div></div>
+<small class="footnote">© 2025 ArtWallsy • Powered by Art Connection • Fort Lauderdale, FL</small></div>
+<div class="right-col"><div class="frame-stage" id="stage"><img id="frameImg" alt="Frame" src="assets/frame-black.png"/>
+<div class="mat"><img id="artImg" alt="Artwork preview" src="assets/sample.jpg"/></div></div></div></section>
+<section id="rooms" class="rooms card"><h2>Live Room Preview</h2>
+<div class="room-tabs"><button class="tab active" data-room="bedroom">Bedroom</button><button class="tab" data-room="living">Living Room</button><button class="tab" data-room="hallway">Hallway</button></div>
+<div class="room-canvas"><img id="roomImg" src="assets/room-bedroom.jpg" alt="Room"/><div class="wall-art" id="wallArt">
+<img id="wallFrame" src="assets/frame-black.png" alt="Frame"/><div class="mat"><img id="wallArtImg" src="assets/sample.jpg" alt="Artwork"/></div></div></div>
+<small id="scaleNote" class="scale-note">Sizes shown relative to a queen bed ≈ 60"</small></section>
+<section id="how" class="how card"><h2>What is ArtWallsy?</h2>
+<p>Upload your image, choose a premium frame, and preview your artwork at life‑size on curated rooms. When you’re ready, we print on archival paper, mount, frame, and ship worldwide.</p></section></main>
+<div class="modal" id="modal"><div class="modal-body"><button class="close" id="closeModal">×</button><h3>Generate with AI</h3>
+<p class="muted">Type a prompt and we'll create a quick concept locally (no server). Swap later for a real API.</p>
+<div class="prompt-row"><input id="prompt" type="text" placeholder="e.g., Minimal ocean waves in blue"/><button id="gen" class="btn primary">Create</button></div>
+<canvas id="genCanvas" width="1024" height="1024"></canvas><div class="row"><button id="useGen" class="btn outline">Use this image</button></div></div></div>
+<script src="app.js"></script></body></html>
