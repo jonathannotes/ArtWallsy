@@ -1,96 +1,94 @@
-
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ArtWallsy — Premium Preview (BETA)</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="preload" as="image" href="/assets/rooms/living.jpg">
+  <link rel="preload" as="image" href="/assets/rooms/bedroom.jpg">
+  <link rel="preload" as="image" href="/assets/rooms/hallway.jpg">
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <header class="header">
-    <div class="logo">
-      <img src="assets/logo.svg" alt="ArtWallsy logo" height="24"/>
+  <header class="site-header">
+    <div class="brand">
+      <img src="/assets/logo.svg" alt="ArtWallsy logo" class="logo">
       <span class="beta">BETA</span>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Designer -->
-    <section class="card">
+  <main class="wrap">
+    <section class="panel">
       <h1>Design Your Frame</h1>
-      <p class="sub">Upload your image, pick a premium frame, and preview your artwork at real scale before you buy.</p>
 
-      <!-- Uploader (kept, but copy fixed) -->
-      <div class="uploader">
-        <div>Drag & drop your image</div>
-        <button id="chooseBtn" class="btn">Choose Image</button>
-        <input id="fileInput" type="file" accept="image/png,image/jpeg"/>
+      <!-- Upload -->
+      <div class="upload">
+        <p class="hint">Drag &amp; drop your image</p>
+        <label class="file-btn">
+          <input id="fileInput" type="file" accept="image/png,image/jpeg" hidden>
+          <span>Choose Image</span>
+        </label>
       </div>
 
-      <div class="stage" style="margin-top:12px">
-        <div class="frame-canvas">
-          <div id="frameRim" class="frame"></div>
-          <div class="mat"></div>
-          <div class="artwrap"><img id="artImg" class="art" alt="Your artwork"/></div>
+      <!-- Live designer -->
+      <div class="designer">
+        <canvas id="frameCanvas" class="frame-canvas" width="900" height="900" aria-label="Framed preview"></canvas>
+
+        <!-- frames -->
+        <div class="group">
+          <h3>1) Choose a frame</h3>
+          <div id="framePicker" class="choices"></div>
         </div>
-      </div>
 
-      <div class="controls" style="margin-top:12px">
-        <div class="pill active" data-frame="black">Black</div>
-<div class="pill active" data-frame="white">White</div>
-<div class="pill" data-frame="gold">Gold</div>
-<div class="pill" data-frame="silver">Silver</div>
-<div class="pill" data-frame="oak">Oak</div>
-      </div>
+        <!-- sizes -->
+        <div class="group">
+          <h3>2) Size</h3>
+          <div id="sizePicker" class="choices"></div>
+        </div>
 
-      <div class="controls">
-        <div class="pill active" data-size="12x16">12×16</div>
-        <div class="pill" data-size="16x20">16×20</div>
-        <div class="pill" data-size="18x24">18×24</div>
-        <div class="pill" data-size="24x36">24×36</div>
-        <div style="margin-left:auto;font-weight:800" id="price">$199</div>
-      </div>
-
-      <div style="display:flex;justify-content:flex-end;margin-top:10px">
-        <button id="seeBtn" class="btn-see">See on Wall</button>
-      </div>
-
-      <div class="card" style="margin-top:14px">
-        <strong>About ArtWallsy</strong>
-        <p class="sub" style="margin-top:6px">
-          ArtWallsy helps you showcase your art like a gallery. Upload your image, choose a handcrafted frame, and preview it in real rooms at true-to-life scale. When you’re ready, we print on archival paper, mount, frame, and ship—worldwide.
-        </p>
+        <div class="cta-row">
+          <div id="price" class="price">$169</div>
+          <button id="seeOnWallBtn" class="btn primary">See on Wall</button>
+        </div>
       </div>
     </section>
 
-    <!-- Room Preview -->
-    <section id="roomCard" class="card">
-      <h1>Live Room Preview</h1>
-      <div class="room-tabs">
-        <div class="pill active" data-room="bedroom">Bedroom</div>
-        <div class="pill" data-room="living">Living Room</div>
-        <div class="pill" data-room="gallery">Gallery</div>
+    <!-- Wall preview modal -->
+    <dialog id="wallModal" class="modal">
+      <div class="modal-head">
+        <h2>Live Room Preview</h2>
+        <div class="room-tabs" id="roomTabs">
+          <button data-room="bedroom" class="active">Bedroom</button>
+          <button data-room="living">Living Room</button>
+          <button data-room="hallway">Hallway</button>
+        </div>
+        <button class="icon-btn" id="closeWall">×</button>
       </div>
 
-      <div class="canvas">
-        <img id="roomBg" class="bg" src="assets/rooms/bedroom.jpg" alt="Room background"/>
-        <!-- Square, centered, with visible white mat -->
-        <div id="mount" class="mount">
-          <div class="rim"></div>
-          <div class="wmat"></div>
-          <img id="roomArt" class="wart" alt="art on wall"/>
+      <div class="wall-stage" id="wallStage">
+        <img id="wallImg" alt="" class="wall-bg" />
+        <div id="wallFrame" class="wall-frame">
+          <canvas id="wallCanvas"></canvas>
         </div>
       </div>
-      <div id="note" class="note">Shown at realistic scale relative to a queen bed (~60″).</div>
 
-      <div class="footer">
-        <div>© 2025 ArtWallsy · Powered by <strong>Art Connection</strong> — Fort Lauderdale, FL</div>
-        <div>Questions? <a href="mailto:hello@artwallsy.com">hello@artwallsy.com</a></div>
-      </div>
+      <p id="scaleNote" class="scale-note"></p>
+    </dialog>
+
+    <section class="about">
+      <h3>What is ArtWallsy?</h3>
+      <p>
+        Upload any image, pick a gallery-grade frame, and preview your art at
+        true-to-life scale in real rooms. When you’re ready, we print on archival paper,
+        mount, frame, and ship worldwide.
+      </p>
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <footer class="site-footer">
+    © 2025 ArtWallsy • Powered by Art Connection • Fort Lauderdale, FL
+  </footer>
+
+  <script src="/app.js"></script>
 </body>
 </html>
