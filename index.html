@@ -1,116 +1,75 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ArtWallsy — Premium Preview (Beta)</title>
-  <link rel="stylesheet" href="styles.css"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ArtWallsy Beta</title>
+<link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="logo">
-        <img src="assets/logo-blue.svg" alt="ArtWallsy logo" height="28"/>
-        <span class="badge">BETA</span>
-      </div>
-      <div class="badge">Real frames • Real rooms</div>
-    </header>
-
-    <div class="grid">
-      <section class="card">
-        <h1>Design Your Frame</h1>
-
-        <div class="upload">
-          <label for="imgInput"><strong>Drag & drop</strong> your image here or</label><br/>
-          <label class="btn" style="margin-top:10px; display:inline-block" for="imgInput">Choose Image</label>
-          <input id="imgInput" type="file" accept="image/png,image/jpeg"/>
-        </div>
-
-        <div class="frame-stage-wrap">
-          <div class="frame-stage">
-            <div id="frame" class="frame" data-style="black">
-              <div id="art" class="art" style="background-image:url('assets/rooms/bedroom.jpg'); background-size:cover;"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="controls">
-          <div class="group">
-            <h3 class="section-title">1) Choose a frame</h3>
-            <div class="pills">
-              <button class="pill" data-frame="black">Black</button>
-              <button class="pill" data-frame="gold">Gold</button>
-              <button class="pill" data-frame="oak">Oak</button>
-              <button class="pill" data-frame="silver">Silver</button>
-            </div>
-          </div>
-
-          <div class="group">
-            <h3 class="section-title">2) Size</h3>
-            <div class="pills">
-              <button class="pill" data-size="8x10">8×10</button>
-              <button class="pill" data-size="12x16">12×16</button>
-              <button class="pill" data-size="18x24">18×24</button>
-              <button class="pill" data-size="24x36">24×36</button>
-            </div>
-          </div>
-
-          <div class="group" style="display:flex; align-items:center; justify-content:space-between; gap:12px">
-            <div class="price" id="price">$199</div>
-            <div style="display:flex; gap:10px">
-              <button class="btn secondary" id="openWall">See on Wall</button>
-              <button class="btn">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <aside class="card">
-        <h3 class="section-title">What is ArtWallsy?</h3>
-        <p style="color:var(--muted)">
-          Upload any image, design a gallery-grade frame with a true-to-life white mat, and preview your artwork in real rooms — bedroom, living room, or gallery — at realistic scale.
-          When you’re ready, we’ll print on archival paper, mount, frame, and ship worldwide.
-        </p>
-        <div class="footer">
-          <span>© <span id="year"></span> ArtWallsy • Powered by <strong>Art Connection</strong> • Fort Lauderdale, FL</span>
-          <span>Questions? <a href="mailto:hello@artwallsy.com">hello@artwallsy.com</a></span>
-        </div>
-      </aside>
-    </div>
+<header class="header">
+  <div class="logo">
+    <img src="assets/logo.svg" alt="ArtWallsy">
+    <span class="beta">BETA</span>
   </div>
+</header>
 
-  <!-- SEE ON WALL MODAL -->
-  <div class="modal" id="modal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <div class="room-switch">
-          <button class="room" data-room="bedroom">Bedroom</button>
-          <button class="room" data-room="living">Living Room</button>
-          <button class="room" data-room="gallery">Gallery</button>
-        </div>
-        <button class="close" id="closeWall">Close</button>
-      </div>
-      <div class="wall-stage">
-        <img id="wallImg" class="wall-img" src="assets/rooms/bedroom.jpg" alt="Room background"/>
-        <div class="wall-square">
-          <div id="wallFrame" class="wall-frame" style="--frame-color:#1b1f27">
-            <div id="wallArt" class="wall-art"></div>
-          </div>
-        </div>
-      </div>
-      <div class="note" id="note">Sizes shown at realistic scale relative to furniture.</div>
-      <div class="footer" style="margin-top:10px">
-        <span>© <span id="year2"></span> ArtWallsy • Powered by <strong>Art Connection</strong> • Fort Lauderdale, FL</span>
-        <span class="badge">Premium Preview</span>
+<main class="container">
+  <section class="upload">
+    <input id="fileInput" type="file" accept="image/png,image/jpeg"/>
+    <label for="fileInput" class="btn">Choose Image</label>
+  </section>
+
+  <section class="preview">
+    <div class="frame" id="frame">
+      <div class="frame-rail"></div>
+      <div class="mat"><img id="artImg" class="art" src="" alt=""></div>
+    </div>
+  </section>
+
+  <div class="controls">
+    <div class="group">
+      <h3>Frame Finish</h3>
+      <div class="pills">
+        <button class="pill active" data-frame="black">Black</button>
+        <button class="pill" data-frame="gold">Gold</button>
+        <button class="pill" data-frame="oak">Oak</button>
+        <button class="pill" data-frame="silver">Silver</button>
       </div>
     </div>
+    <div class="group">
+      <h3>Size</h3>
+      <div class="pills">
+        <button class="pill active" data-size="12x16">12×16</button>
+        <button class="pill" data-size="18x24">18×24</button>
+        <button class="pill" data-size="24x36">24×36</button>
+      </div>
+    </div>
+    <button class="btn see" id="seeWall">See on Wall</button>
   </div>
+</main>
 
-  <script src="app.js"></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('year2').textContent = new Date().getFullYear();
-  </script>
+<div id="wallModal" class="modal">
+  <div class="modal-card">
+    <div class="wall-head">
+      <h3>Live Room Preview</h3>
+      <div class="room-tabs">
+        <button data-room="bedroom" class="active">Bedroom</button>
+        <button data-room="living">Living Room</button>
+        <button data-room="gallery">Gallery</button>
+      </div>
+    </div>
+    <div class="wall-stage">
+      <img id="wallImg" class="wall-bg" src="assets/rooms/bedroom@2x.jpg">
+      <div id="wallFrame" class="wall-frame">
+        <div class="wall-mat"><img id="wallArt" class="wall-art"></div>
+      </div>
+    </div>
+    <p id="scaleNote" class="scale-note">Sizes shown relative to furniture (queen bed ≈ 60″)</p>
+    <button id="closeModal" class="btn ghost">Close</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
