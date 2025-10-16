@@ -1,1 +1,11 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='720' height='200' viewBox='0 0 720 200'><rect width='100%' height='100%' fill='#ffffff'/><g font-family='Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial' font-weight='700'><text x='50%' y='55%' text-anchor='middle' font-size='80' fill='#111827'>Art<tspan fill='#b0893f'>Wall</tspan>sy</text></g></svg>
+<svg width="156" height="30" viewBox="0 0 156 30" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#3B82F6"/><stop offset="1" stop-color="#06B6D4"/>
+  </linearGradient></defs>
+  <g fill="none" fill-rule="evenodd">
+    <rect x="2" y="3" width="24" height="24" rx="6" fill="url(#g)"/>
+    <path d="M9 21l5-10 5 10H9z" fill="#fff"/>
+    <text x="34" y="20" font-family="Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial"
+          font-size="18" font-weight="800" fill="#ffffff" letter-spacing=".25">ArtWallsy</text>
+  </g>
+</svg>
