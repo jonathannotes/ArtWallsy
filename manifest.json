@@ -1,0 +1,34 @@
+{
+  "frames": [
+    {
+      "name": "black",
+      "displayOrder": 1,
+      "file": "assets/frames/black.png",
+      "file2x": "assets/frames/black@2x.png"
+    },
+    {
+      "name": "white",
+      "displayOrder": 2,
+      "file": "assets/frames/white.png",
+      "file2x": "assets/frames/white@2x.png"
+    },
+    {
+      "name": "gold",
+      "displayOrder": 3,
+      "file": "assets/frames/gold.png",
+      "file2x": "assets/frames/gold@2x.png"
+    },
+    {
+      "name": "silver",
+      "displayOrder": 4,
+      "file": "assets/frames/silver.png",
+      "file2x": "assets/frames/silver@2x.png"
+    },
+    {
+      "name": "oak",
+      "displayOrder": 5,
+      "file": "assets/frames/oak.png",
+      "file2x": "assets/frames/oak@2x.png"
+    }
+  ]
+}
