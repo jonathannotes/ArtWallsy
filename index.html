@@ -1,75 +1,97 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ArtWallsy Beta</title>
-<link rel="stylesheet" href="styles.css"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ArtWallsy — Premium Preview (Beta)</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-<header class="header">
-  <div class="logo">
-    <img src="assets/logo.svg" alt="ArtWallsy">
-    <span class="beta">BETA</span>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <img src="assets/logo.svg" alt="ArtWallsy logo" height="36"/>
+        <span class="badge">BETA</span>
+      </div>
+      <div class="small">© 2025 ArtWallsy</div>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h1>Design Your Frame</h1>
+        <p class="sub">Upload your artwork, choose a frame, pick a size, then preview it on a real wall.</p>
+
+        <div class="uploader">
+          <input id="upload" type="file" accept="image/*"/>
+          <div>Drag &amp; drop your image here</div>
+          <button class="fake" id="fakeBtn">Choose Image</button>
+        </div>
+
+        <div class="stage" style="margin-top:14px;">
+          <div class="frame-wrap">
+            <img class="art-img" src="" alt="Your art"/>
+            <div class="art-mat"></div>
+            <div class="frame black"></div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:18px;margin-bottom:8px">1) Choose a frame</h3>
+        <div class="chips">
+          <div class="chip is-active" data-frame="black"><span class="frame-option black"></span> Black</div>
+          <div class="chip" data-frame="gold"><span class="frame-option gold"></span> Gold</div>
+          <div class="chip" data-frame="oak"><span class="frame-option oak"></span> Oak</div>
+          <div class="chip" data-frame="silver"><span class="frame-option silver"></span> Silver</div>
+        </div>
+
+        <h3 style="margin-top:14px;margin-bottom:8px">2) Size</h3>
+        <div class="chips">
+          <div class="chip is-active" data-size="8x10">8×10</div>
+          <div class="chip" data-size="12x16">12×16</div>
+          <div class="chip" data-size="16x20">16×20</div>
+          <div class="chip" data-size="18x24">18×24</div>
+          <div class="chip" data-size="24x36">24×36</div>
+        </div>
+
+        <div class="toolbar">
+          <a class="btn-ghost" href="#room">See on Wall</a>
+          <div style="margin-left:auto;font-size:20px;font-weight:800" id="price">$199</div>
+          <a class="btn" href="#">Add to Cart</a>
+        </div>
+
+        <hr class="sep"/>
+        <div class="small">
+          <strong>What is ArtWallsy?</strong>
+          Upload any image, design a gallery-grade frame with true‑to‑life previews, then see it on a real wall scene to gauge size and vibe. When you’re ready, we’ll print on archival paper, mount, frame, and ship worldwide.
+        </div>
+      </section>
+
+      <section id="room" class="card room">
+        <h2 style="margin:0 0 10px 0">Live Room Preview</h2>
+        <div class="chips" style="margin-bottom:10px">
+          <div class="chip is-active" data-room="bedroom">Bedroom</div>
+          <div class="chip" data-room="livingroom">Living Room</div>
+          <div class="chip" data-room="gallery">Gallery</div>
+        </div>
+
+        <div class="canvas">
+          <img class="bg" src="assets/bedroom.jpg" alt="room background"/>
+          <div class="mount black">
+            <img class="pic" src="" alt="art in room"/>
+            <div class="mat"></div>
+            <div class="rim"></div>
+          </div>
+        </div>
+        <div class="notice" id="scaleNote">Shown at realistic scale relative to a queen bed (~60").</div>
+
+        <hr class="sep"/>
+        <div class="footer">
+          <div>© 2025 <strong>ArtWallsy</strong> · Powered by <strong>Art Connection</strong> • Fort Lauderdale, FL</div>
+          <div>Questions? <a href="mailto:hello@artwallsy.com" class="small" style="color:#bcd2ff">hello@artwallsy.com</a></div>
+        </div>
+      </section>
+    </div>
   </div>
-</header>
-
-<main class="container">
-  <section class="upload">
-    <input id="fileInput" type="file" accept="image/png,image/jpeg"/>
-    <label for="fileInput" class="btn">Choose Image</label>
-  </section>
-
-  <section class="preview">
-    <div class="frame" id="frame">
-      <div class="frame-rail"></div>
-      <div class="mat"><img id="artImg" class="art" src="" alt=""></div>
-    </div>
-  </section>
-
-  <div class="controls">
-    <div class="group">
-      <h3>Frame Finish</h3>
-      <div class="pills">
-        <button class="pill active" data-frame="black">Black</button>
-        <button class="pill" data-frame="gold">Gold</button>
-        <button class="pill" data-frame="oak">Oak</button>
-        <button class="pill" data-frame="silver">Silver</button>
-      </div>
-    </div>
-    <div class="group">
-      <h3>Size</h3>
-      <div class="pills">
-        <button class="pill active" data-size="12x16">12×16</button>
-        <button class="pill" data-size="18x24">18×24</button>
-        <button class="pill" data-size="24x36">24×36</button>
-      </div>
-    </div>
-    <button class="btn see" id="seeWall">See on Wall</button>
-  </div>
-</main>
-
-<div id="wallModal" class="modal">
-  <div class="modal-card">
-    <div class="wall-head">
-      <h3>Live Room Preview</h3>
-      <div class="room-tabs">
-        <button data-room="bedroom" class="active">Bedroom</button>
-        <button data-room="living">Living Room</button>
-        <button data-room="gallery">Gallery</button>
-      </div>
-    </div>
-    <div class="wall-stage">
-      <img id="wallImg" class="wall-bg" src="assets/rooms/bedroom@2x.jpg">
-      <div id="wallFrame" class="wall-frame">
-        <div class="wall-mat"><img id="wallArt" class="wall-art"></div>
-      </div>
-    </div>
-    <p id="scaleNote" class="scale-note">Sizes shown relative to furniture (queen bed ≈ 60″)</p>
-    <button id="closeModal" class="btn ghost">Close</button>
-  </div>
-</div>
-
-<script src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
