@@ -1,105 +1,92 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ArtWallsy — Premium Preview</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ArtWallsy — Premium Preview (BETA)</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css"/>
 </head>
 <body>
   <header class="header">
-    <div class="logo">
-      <span class="logo-badge"><span class="logo-dot"></span></span>
-      ArtWallsy
+    <div class="left">
+      <img src="assets/logo/logo.svg" alt="ArtWallsy logo" height="28"/>
+      <span class="badge">BETA</span>
     </div>
-    <span class="beta">BETA</span>
+    <div class="right muted">Premium Preview</div>
   </header>
 
-  <main class="wrap">
+  <main class="container">
+    <!-- Left: Designer -->
     <section class="card">
-      <h2 class="h2">Design Your Frame</h2>
-      <div class="uploader">
-        <input id="file" type="file" accept="image/png, image/jpeg"/>
-      </div>
-
-      <div class="preview" style="margin-top:14px;">
-        <div class="frame-stage">
-          <div class="frame-img"></div>
-          <div class="frame-mat"></div>
-          <div class="frame-art"><img id="artImage" alt="Your artwork"/></div>
+      <h1>Design Your Frame</h1>
+      <div class="upload">
+        <h2>1) Upload your artwork (JPG/PNG)</h2>
+        <div class="dropzone">
+          <div class="muted">Drag & drop your image here</div>
+          <button class="btn" id="browseBtn">Choose Image</button>
+          <input id="fileInput" type="file" accept="image/png, image/jpeg"/>
+        </div>
+        <div class="preview">
+          <div class="canvas-wrap">
+            <img id="frameCanvas" alt="Framed preview" style="max-width:100%; border-radius:10px"/>
+          </div>
         </div>
       </div>
 
-      <div style="margin-top:14px;">
-        <div style="margin-bottom:6px;color:#9fb2d6;">Frames</div>
-        <div class="options">
-          <button class="btn active" data-frame="black">Black</button>
-          <button class="btn" data-frame="gold">Gold</button>
-          <button class="btn" data-frame="oak">Oak</button>
-          <button class="btn" data-frame="silver">Silver</button>
+      <div style="margin-top:12px">
+        <h2>2) Choose a frame</h2>
+        <div class="controls">
+          <button class="pill frame-pill active" data-key="black" onclick="selectFrame('black')">Black</button>
+          <button class="pill frame-pill" data-key="gold" onclick="selectFrame('gold')">Gold</button>
+          <button class="pill frame-pill" data-key="oak" onclick="selectFrame('oak')">Oak</button>
+          <button class="pill frame-pill" data-key="silver" onclick="selectFrame('silver')">Silver</button>
         </div>
       </div>
 
-      <div style="margin-top:14px;">
-        <div style="margin-bottom:6px;color:#9fb2d6;">Sizes</div>
-        <div class="size-grid">
-          <button class="btn" data-size="8x10">8×10</button>
-          <button class="btn active" data-size="12x16">12×16</button>
-          <button class="btn" data-size="16x20">16×20</button>
-          <button class="btn" data-size="18x24">18×24</button>
-          <button class="btn" data-size="24x36">24×36</button>
+      <div style="margin-top:12px">
+        <h2>3) Size</h2>
+        <div class="controls">
+          <button class="pill size-pill" data-key="8x10" onclick="selectSize('8x10')">8×10</button>
+          <button class="pill size-pill active" data-key="12x16" onclick="selectSize('12x16')">12×16</button>
+          <button class="pill size-pill" data-key="16x20" onclick="selectSize('16x20')">16×20</button>
+          <button class="pill size-pill" data-key="18x24" onclick="selectSize('18x24')">18×24</button>
+          <button class="pill size-pill" data-key="24x36" onclick="selectSize('24x36')">24×36</button>
         </div>
-        <div class="price" id="price">$199</div>
+      </div>
+
+      <div class="priceBar">
+        <div id="price" style="font-size:22px; font-weight:800">$199</div>
+        <div style="display:flex; gap:10px">
+          <button class="btnGhost" onclick="document.getElementById('seeOnWall').scrollIntoView({behavior:'smooth'})">See on Wall</button>
+          <button class="btnPrimary">Add to Cart</button>
+        </div>
       </div>
     </section>
 
-    <aside class="card room">
-      <div class="room-toolbar">
-        <button class="btn active" data-room-btn="bedroom">Bedroom</button>
-        <button class="btn" data-room-btn="living">Living Room</button>
-        <button class="btn" data-room-btn="gallery">Gallery</button>
-      </div>
-
-      <!-- Bedroom stage -->
-      <div class="room-stage" data-room="bedroom" style="display:block">
-        <img class="room-img" alt="bedroom"/>
-        <div class="room-frame">
-          <div class="frame-img"></div>
-          <div class="frame-mat"></div>
-          <div class="frame-art"><img alt="Your artwork"/></div>
+    <!-- Right: Room preview -->
+    <section class="card" id="seeOnWall">
+      <h1>Live Room Preview</h1>
+      <div class="room">
+        <div class="thumbs">
+          <button class="room-pill active" data-key="bedroom" onclick="chooseRoom('bedroom')">Bedroom</button>
+          <button class="room-pill" data-key="living" onclick="chooseRoom('living')">Living Room</button>
+          <button class="room-pill" data-key="gallery" onclick="chooseRoom('gallery')">Gallery</button>
         </div>
-      </div>
-
-      <!-- Living room stage -->
-      <div class="room-stage" data-room="living" style="display:none">
-        <img class="room-img" alt="living room"/>
-        <div class="room-frame">
-          <div class="frame-img"></div>
-          <div class="frame-mat"></div>
-          <div class="frame-art"><img alt="Your artwork"/></div>
+        <div class="roomView">
+          <img id="roomPreview" alt="Room preview"/>
         </div>
+        <div class="muted">Sizes are shown at realistic scale relative to furniture (e.g., queen bed ≈ 60″).</div>
       </div>
-
-      <!-- Gallery stage -->
-      <div class="room-stage" data-room="gallery" style="display:none">
-        <img class="room-img" alt="gallery wall"/>
-        <div class="room-frame">
-          <div class="frame-img"></div>
-          <div class="frame-mat"></div>
-          <div class="frame-art"><img alt="Your artwork"/></div>
-        </div>
-      </div>
-    </aside>
-
-    <section class="card" style="grid-column:1/-1">
-      <h3 style="margin:0 0 6px;">What is ArtWallsy?</h3>
-      <p class="description">
-        Upload any image, design a gallery‑grade frame with a realistic mat and four finishes, then preview it at true scale in real rooms.
-        When you’re ready, we’ll print on archival paper, mount, frame, and ship worldwide.
-      </p>
-      <div class="powered">© 2025 ArtWallsy · Powered by Art Connection · Fort Lauderdale, FL</div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div>© 2025 ArtWallsy · <span class="muted">Powered by Art Connection • Fort Lauderdale, FL</span></div>
+    <div class="muted">Questions? <a href="#">hello@artwallsy.com</a></div>
+  </footer>
 
   <script src="assets/js/app.js"></script>
 </body>
