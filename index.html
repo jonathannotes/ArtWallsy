@@ -16,36 +16,80 @@
   </header>
 
   <main class="container">
+    <!-- Designer -->
     <section class="card">
       <h1>Design Your Frame</h1>
       <p class="sub">Upload your image, pick a premium frame, and preview your artwork at real scale before you buy.</p>
+
+      <!-- Uploader (kept, but copy fixed) -->
       <div class="uploader">
         <div>Drag & drop your image</div>
         <button id="chooseBtn" class="btn">Choose Image</button>
         <input id="fileInput" type="file" accept="image/png,image/jpeg"/>
       </div>
-      <div class="preview">
-        <div class="art-wrap">
-          <img id="artImg" class="art" alt="Your artwork"/>
+
+      <div class="stage" style="margin-top:12px">
+        <div class="frame-canvas">
+          <div id="frameRim" class="frame"></div>
           <div class="mat"></div>
-          <img id="frameImg" class="frame-img" src="assets/frames/black.png" alt="Frame"/>
+          <div class="artwrap"><img id="artImg" class="art" alt="Your artwork"/></div>
         </div>
       </div>
-      <div class="controls">
+
+      <div class="controls" style="margin-top:12px">
         <div class="pill active" data-frame="black">Black</div>
         <div class="pill" data-frame="gold">Gold</div>
         <div class="pill" data-frame="oak">Oak</div>
         <div class="pill" data-frame="silver">Silver</div>
       </div>
+
+      <div class="controls">
+        <div class="pill active" data-size="12x16">12×16</div>
+        <div class="pill" data-size="16x20">16×20</div>
+        <div class="pill" data-size="18x24">18×24</div>
+        <div class="pill" data-size="24x36">24×36</div>
+        <div style="margin-left:auto;font-weight:800" id="price">$199</div>
+      </div>
+
       <div style="display:flex;justify-content:flex-end;margin-top:10px">
         <button id="seeBtn" class="btn-see">See on Wall</button>
       </div>
+
+      <div class="card" style="margin-top:14px">
+        <strong>About ArtWallsy</strong>
+        <p class="sub" style="margin-top:6px">
+          ArtWallsy helps you showcase your art like a gallery. Upload your image, choose a handcrafted frame, and preview it in real rooms at true-to-life scale. When you’re ready, we print on archival paper, mount, frame, and ship—worldwide.
+        </p>
+      </div>
+    </section>
+
+    <!-- Room Preview -->
+    <section id="roomCard" class="card">
+      <h1>Live Room Preview</h1>
+      <div class="room-tabs">
+        <div class="pill active" data-room="bedroom">Bedroom</div>
+        <div class="pill" data-room="living">Living Room</div>
+        <div class="pill" data-room="gallery">Gallery</div>
+      </div>
+
+      <div class="canvas">
+        <img id="roomBg" class="bg" src="assets/rooms/bedroom.jpg" alt="Room background"/>
+        <!-- Square, centered, with visible white mat -->
+        <div id="mount" class="mount">
+          <div class="rim"></div>
+          <div class="wmat"></div>
+          <img id="roomArt" class="wart" alt="art on wall"/>
+        </div>
+      </div>
+      <div id="note" class="note">Shown at realistic scale relative to a queen bed (~60″).</div>
+
       <div class="footer">
         <div>© 2025 ArtWallsy · Powered by <strong>Art Connection</strong> — Fort Lauderdale, FL</div>
         <div>Questions? <a href="mailto:hello@artwallsy.com">hello@artwallsy.com</a></div>
       </div>
     </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
